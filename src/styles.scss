@@ -6,10 +6,6 @@
 @import "assets/scss/dialog";
 @import "assets/scss/forms";
 @import "assets/scss/utils";
+@import "assets/scss/general";
 @import "assets/scss/components/product-dialog.component";
 @import "assets/scss/components/product-list.component";
-
-body {
-  margin: 0;
-  padding: 0;
-}
