@@ -1,5 +1,4 @@
 /* COLORS */
-$white: #ffffff;
 $light-gray: #f2f2f2;
 $mid-gray: #e4e4e4;
 $gray: #b0b0b5;
@@ -18,7 +17,7 @@ $xlarge-spacer: $small-spacer*4; //32px
 $regular-font-weight: 400;
 $bold-font-weight: 700;
 
-// Media Query Ranges
+// Media Query Ranges (according Material guidelines)
 $xsmall-screen-up: 420px !default;
 $small-screen-up: 601px !default;
 $medium-screen-up: 993px !default;

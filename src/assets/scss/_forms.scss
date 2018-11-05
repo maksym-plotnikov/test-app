@@ -6,10 +6,10 @@
   }
 
   &.mat-accent .mat-checkbox-background, &.mat-accent .mat-checkbox-background {
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: $small-spacer*0.625;
+    left: $small-spacer*0.625;
+    right: $small-spacer*0.625;
+    bottom: $small-spacer*0.625;
     border-radius: 0;
   }
 
@@ -18,7 +18,7 @@
   }
 
   .mat-checkbox-frame {
-    border-width: 2px;
+    border-width: $small-spacer*0.25;
     border-radius: 0;
   }
 }
