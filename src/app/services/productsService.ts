@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Product} from '../models/Product.model';
 import {ProductsMenu} from '../models/Menu.model';
-
+import {API_URL} from '../constants/urls';
 
 @Injectable()
 export class ProductsService {
@@ -10,10 +10,10 @@ export class ProductsService {
     }
 
     getMenuData(): Promise<ProductsMenu> {
-        return this.http.get<ProductsMenu>('http://localhost:4200/assets/menu.json').toPromise();
+        return this.http.get<ProductsMenu>(`${API_URL}/assets/menu.json`).toPromise();
     }
 
     getProductsData(): Promise<Product[]> {
-        return this.http.get<Product[]>('http://localhost:4200/assets/product.json').toPromise();
+        return this.http.get<Product[]>(`${API_URL}/assets/product.json`).toPromise();
     }
 }
