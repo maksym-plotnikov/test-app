@@ -1,0 +1,104 @@
+#product-dialog {
+  width: 100%;
+  max-width: 30vw;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: initial;
+  pointer-events: auto;
+  .scroll-container {
+    max-height: 90vh;
+    margin: 0;
+    padding: 0;
+  }
+  .product-card {
+    padding-bottom: $large-spacer;
+    margin: $xlarge-spacer;
+    .heading-block, .subheading-block {
+      margin: 0 (-$regular-spacer) $regular-spacer (-$regular-spacer);
+    }
+    .heading-block {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: $small-spacer $regular-spacer;
+      background: $light-gray;
+      & + .subheading-block {
+        margin-top: (-$regular-spacer);
+      }
+      .option {
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+    }
+    .subheading-block {
+      padding: $regular-spacer;
+      background: $mid-gray;
+      .info {
+        margin: 0;
+      }
+    }
+  }
+  .reset-btn {
+    padding: 0 $small-spacer;
+    margin-right: (-$small-spacer);
+    min-width: auto;
+  }
+  .back-btn {
+    position: absolute;
+    top: $small-spacer;
+    left: $small-spacer;
+    color: $gray;
+    background: $white;
+  }
+  .card-header {
+    padding: $small-spacer;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 0 $small-spacer;
+    background: $dark-brown;
+    .mat-button-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      color: $white;
+      .mat-icon, span {
+        min-width: 50px;
+      }
+    }
+  }
+
+  .price-tag {
+    color: $gray;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $regular-spacer;
+    .radio-button {
+      margin: 5px 0;
+      .mat-radio-label {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        .mat-radio-label-content {
+          padding-left: 0;
+        }
+      }
+    }
+    .mat-checkbox-layout {
+      width: 100%;
+      .mat-checkbox-label {
+        flex-grow: 2;
+      }
+    }
+
+  }
+}

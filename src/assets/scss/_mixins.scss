@@ -1,0 +1,42 @@
+/* MIXINS */
+
+// Different devices resolutions
+@mixin respond-to($media) {
+  @if $media==old-phones {
+    @media #{$xsmall-and-down} {
+      @content;
+    }
+  } @else if $media==phones {
+    @media #{$small-and-down} {
+      @content;
+    }
+  } @else if $media==tablets-portrait {
+    @media #{$medium-and-down} {
+      @content;
+    }
+  } @else if $media==tablets-landscape {
+    @media #{$large-and-down} {
+      @content;
+    }
+  } @else if $media==desktops {
+    @media #{$xlarge-and-down} {
+      @content;
+    }
+  } @else if $media==desktops-large {
+    @media #{$xxlarge-and-up}{
+      @content;
+    }
+  }
+}
+
+@mixin flex-values($prop) {
+  $total: 20;
+  $percents: 10%;
+  @for $i from 1 through $total {
+    .flex-#{$i*5} {
+      box-sizing: border-box;
+      flex: 1 1 100%;
+      max-#{$prop}: #{$i*5%};
+    }
+  }
+}

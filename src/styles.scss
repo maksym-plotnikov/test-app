@@ -1,0 +1,15 @@
+@import "assets/scss/variables";
+@import "assets/scss/mixins";
+@import "assets/scss/flexbox";
+@import "assets/scss/custom-theme";
+@import "assets/scss/typography";
+@import "assets/scss/dialog";
+@import "assets/scss/forms";
+@import "assets/scss/utils";
+@import "assets/scss/components/product-dialog.component";
+@import "assets/scss/components/product-list.component";
+
+body {
+  margin: 0;
+  padding: 0;
+}

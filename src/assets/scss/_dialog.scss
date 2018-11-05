@@ -1,0 +1,19 @@
+// Override Material Dialog scroll
+.cdk-overlay-container {
+  pointer-events: auto;
+  overflow: auto;
+}
+
+.cdk-global-overlay-wrapper {
+  pointer-events: auto; // be able to scroll event
+  overflow-y: scroll;
+  align-items: start;
+  z-index: auto; // remove z-index
+}
+.cdk-overlay-pane {
+  width: 100%;
+  pointer-events: none!important;
+  justify-content: center;
+  margin: 1rem;
+  z-index: 1002;
+}

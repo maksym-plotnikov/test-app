@@ -1,0 +1,61 @@
+.flex-row {
+  @include flexbox();
+  @include flex-direction(row);
+  //Generate grid
+  @include flex-values(width);
+}
+
+.flex-column {
+  @include flexbox();
+  @include flex-direction(column);
+  //Generate grid
+  @include flex-values(height);
+}
+
+.flex-wrap {
+  @include flex-wrap(wrap);
+}
+
+.flex-nowrap {
+  @include flex-wrap(nowrap);
+}
+
+.align-stretch {
+  @include align-items(stretch);
+}
+
+.align-center {
+  @include align-items(center);
+}
+
+.align-top {
+  @include align-items(top);
+}
+
+.align-bottom {
+  @include align-items(bottom);
+}
+
+.justify-start {
+  @include justify-content(start);
+}
+
+.justify-center {
+  @include justify-content(center);
+}
+
+.justify-top {
+  @include justify-content(center);
+}
+
+.justify-bottom {
+  @include justify-content(bottom);
+}
+
+.justify-between {
+  @include justify-content(space-between);
+}
+
+.flex-auto {
+  @include flex(1 1 auto);
+}

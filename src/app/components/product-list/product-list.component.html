@@ -1,0 +1,28 @@
+<mat-list *ngIf="data">
+    <mat-list-item>
+        <h2>Products</h2>
+    </mat-list-item>
+    <div class="list-item" *ngFor="let product of data.products">
+        <mat-list-item (click)="gotoProductDetails('/products', product)">
+            <h2 matLine>{{product.name}}</h2>
+            <p matLine>
+                <span>{{product.description}}</span>
+                <span class="mat-h3">  -  ${{product.price}}</span>
+            </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>
+<div class="content-column mat-list-item" *ngIf="selectedProduct">
+    <h2 class="mat-h2">You choosed:</h2>
+    <h3 class="mat-h3">{{selectedProduct.product.name}}</h3>
+    <h3 class="mat-h3">Price:
+        <span>${{selectedProduct.product.price}}</span>
+        <span *ngIf="selectedProduct.productItems > 1"> x {{selectedProduct.productItems}} = ${{selectedProduct.product.price*selectedProduct.productItems}}</span>
+    </h3>
+    <h4 class="mat-h4">Options:</h4>
+    <div *ngFor="let option of objectValues(selectedProduct.extras)">
+        <h4 class="mat-h5">{{option.name}} <span>(${{option.price}})</span></h4>
+    </div>
+    <h3 class="mat-h3">TOTAL: ${{selectedProduct.grandTotal}}</h3>
+</div>
