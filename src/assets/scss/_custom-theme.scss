@@ -6,11 +6,21 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
+$custom-primary-pallete: (
+        500: lighten($primary, 5%),
+        600: $primary,
+        700: darken($primary, 5%),
+        contrast: (
+                500: $light-primary-text,
+                600: $light-primary-text,
+                700: $light-primary-text,
+        )
+);
 
-$custom-pallete: (
-        500: lighten($dark-gray, 5%),
-        600: $dark-gray,
-        700: darken($dark-gray, 5%),
+$custom-secondary-pallete: (
+        500: lighten($secondary, 5%),
+        600: $secondary,
+        700: darken($secondary, 5%),
         contrast: (
                 500: $dark-primary-text,
                 600: $dark-primary-text,
@@ -20,8 +30,8 @@ $custom-pallete: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat-palette($mat-indigo);
-$app-accent: mat-palette($custom-pallete, 600, 500, 700);
+$app-primary: mat-palette($custom-primary-pallete, 600, 500, 700);
+$app-accent: mat-palette($custom-secondary-pallete, 600, 500, 700);
 
 // The warn palette is optional (defaults to red).
 $app-warn: mat-palette($mat-red);

@@ -5,13 +5,18 @@ $mid-gray: #e4e4e4;
 $gray: #b0b0b5;
 $dark-brown: #372922;
 $dark-gray: #707070;
-
+$brown: #9b6f4c;
+$primary: $brown;
+$secondary: $dark-gray;
+$disabled: #acacb1;
 /* SIZES */
 $small-spacer: 8px;
 $regular-spacer: $small-spacer*2; //16px;
 $large-spacer: $small-spacer*3; //24px;
 $xlarge-spacer: $small-spacer*4; //32px
-
+/* FONTS */
+$regular-font-weight: 400;
+$bold-font-weight: 700;
 
 // Media Query Ranges
 $xsmall-screen-up: 420px !default;

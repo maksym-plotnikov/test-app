@@ -1,11 +1,11 @@
 .list-item {
   cursor: pointer;
 }
+
 .content-column {
-  display: flex;
-  flex-direction: column;
+  @extend .flex-column;
   padding: $regular-spacer;
-  font-weight: 400;
+  font-weight: $regular-font-weight;
   .mat-h4, .mat-h5 {
     margin: 0 0 $small-spacer;
   }

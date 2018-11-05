@@ -1,74 +1,74 @@
 <mat-card *ngIf="!product">
     <h3>Loading...</h3>
 </mat-card>
-<div class="scroll-container">
-    <mat-card class="product-card" *ngIf="product" cdkFocusInitial>
-        <img mat-card-image src="{{product.images.thumbnail}}" alt="Thumbnail">
-        <button class="back-btn" mat-icon-button (click)="onClose()">
-            <mat-icon aria-label="Back">arrow_back</mat-icon>
-        </button>
 
-        <mat-card-header class="card-header">
-            <mat-card-title>{{product.name}}</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
+<mat-card class="product-card" *ngIf="product">
+    <img mat-card-image src="{{product.images.thumbnail}}" alt="Thumbnail">
+    <button class="back-btn" mat-icon-button (click)="onClose()">
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </button>
 
-        <mat-divider></mat-divider>
+    <mat-card-header class="card-header">
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
 
-        <div class="flex-row flex-nowrap justify-between">
-            <p>${{product.price * itemCount}}</p>
-            <div class="flex-row flex-nowrap align-center justify-center">
-                <button mat-icon-button (click)="decrement()">
-                    <mat-icon aria-label="Decrease">remove</mat-icon>
-                </button>
-                {{itemCount}}
-                <button mat-icon-button (click)="increment()">
-                    <mat-icon aria-label="Increase">add</mat-icon>
-                </button>
-            </div>
-        </div>
+    <mat-divider></mat-divider>
 
-        <div *ngFor="let option of product.extras; let i = index">
-            <div class="heading-block">
-                <h3 class="option">
-                    <span>{{option.name}}</span>
-                    <span *ngIf="needsValidation(i)" class="gray-text">(required)</span>
-                </h3>
-                <button *ngIf="needsReset(option)" class="reset-btn"
-                        mat-button (click)="resetFieldGroup(option.id)">
-                    reset
-                </button>
-            </div>
-            <div *ngIf="i === 0" class="subheading-block">
-                <p class="info">Please select 1 item</p>
-            </div>
-
-            <mat-radio-group *ngIf="!needsMultipeOptions(i)" class="input-group" [(ngModel)]="radioData[option.id]">
-                <mat-radio-button (change)="onChange(option.id, item)" class="radio-button"
-                                  name="item.id" *ngFor="let item of option.items" [value]="item">
-                    {{item.name}} <span class="price-tag" *ngIf="item.price > 0">($ {{item.price}})</span>
-                </mat-radio-button>
-                <mat-error *ngIf="needsValidation(i) && hasErrors && !selectedExtras[option.id]">
-                    You must choose one option
-                </mat-error>
-            </mat-radio-group>
-
-            <section *ngIf="needsMultipeOptions(i)" class="input-group">
-                <mat-checkbox (change)="onChange(option.id, item, false, $event)" class="radio-button"
-                              [labelPosition]="'before'" name="item.id" *ngFor="let item of option.items"
-                              [value]="item.price">
-                    {{item.name}} <span class="price-tag" *ngIf="item.price > 0">($ {{item.price}})</span>
-                </mat-checkbox>
-            </section>
-        </div>
-
-        <div>
-            <button class="add-to-cart-btn" mat-button (click)="onSubmit()">
-                <mat-icon aria-label="Back">shopping_cart</mat-icon>
-                <span class="text">Add {{itemCount}} to cart</span>
-                <span>$ {{grandTotal}}</span>
+    <div class="flex-row flex-nowrap justify-between">
+        <p>${{product.price * itemCount}}</p>
+        <div class="flex-row flex-nowrap align-center justify-center">
+            <button mat-icon-button (click)="decrement()" class="action-btn" [disabled]="itemCount === 1">
+                <mat-icon aria-label="Decrease">remove</mat-icon>
+            </button>
+            <span class="item-count">{{itemCount}}</span>
+            <button mat-icon-button (click)="increment()" class="action-btn" cdkFocusInitial>
+                <mat-icon aria-label="Increase">add</mat-icon>
             </button>
         </div>
+    </div>
 
-    </mat-card>
-</div>
+    <div *ngFor="let option of product.extras; let i = index">
+        <div class="heading-block">
+            <h3 class="option">
+                {{option.name}}
+                <span *ngIf="needsValidation(option)" class="gray-text">(required)</span>
+            </h3>
+            <button *ngIf="needsReset(option)" class="reset-btn"
+                    mat-button (click)="resetFieldGroup(option.id)">
+                reset
+            </button>
+        </div>
+        <div *ngIf="i === 0" class="subheading-block">
+            <p class="info">Please select 1 item</p>
+        </div>
+
+        <mat-radio-group *ngIf="!needsMultipeOptions(option)" class="input-group"
+                         [(ngModel)]="radioData[option.id]">
+            <mat-radio-button (change)="onChange(option.id, item)" class="radio-button"
+                              name="item.id" *ngFor="let item of option.items" [value]="item">
+                {{item.name}} <span class="price-tag" *ngIf="item.price > 0">($ {{item.price}})</span>
+            </mat-radio-button>
+            <mat-error *ngIf="needsValidation(option) && hasErrors">
+                You must choose one option
+            </mat-error>
+        </mat-radio-group>
+
+        <section *ngIf="needsMultipeOptions(option)" class="input-group">
+            <mat-checkbox (change)="onChange(option.id, item, $event)" class="radio-button"
+                          [labelPosition]="'before'" name="item.id" *ngFor="let item of option.items"
+                          [value]="item.price">
+                {{item.name}} <span class="price-tag" *ngIf="item.price > 0">($ {{item.price}})</span>
+            </mat-checkbox>
+        </section>
+    </div>
+
+    <div>
+        <button class="add-to-cart-btn" mat-button (click)="onSubmit()">
+            <mat-icon aria-label="Back">shopping_cart</mat-icon>
+            <span class="text">Add {{itemCount}} to cart</span>
+            <span>$ {{grandTotal}}</span>
+        </button>
+    </div>
+
+</mat-card>

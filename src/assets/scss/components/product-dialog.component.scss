@@ -1,20 +1,27 @@
 #product-dialog {
   width: 100%;
-  max-width: 30vw;
+  max-width: $large-spacer*20;
   padding: 0;
   margin: 0;
   background: transparent;
   box-shadow: none;
   overflow: initial;
   pointer-events: auto;
-  .scroll-container {
-    max-height: 90vh;
-    margin: 0;
-    padding: 0;
+
+
+  @include respond-to(tablets-landscape) {
+    max-width: $large-spacer*16;
+    @include respond-to(old-phones) {
+      max-width: 100%;
+    }
   }
   .product-card {
     padding-bottom: $large-spacer;
     margin: $xlarge-spacer;
+    @include respond-to(phones) {
+      margin: $small-spacer 0;
+      max-width: 100%;
+    }
     .heading-block, .subheading-block {
       margin: 0 (-$regular-spacer) $regular-spacer (-$regular-spacer);
     }
@@ -30,7 +37,12 @@
       }
       .option {
         text-transform: uppercase;
-        font-weight: 400;
+        font: 400 16px/28px Roboto, "Helvetica Neue", sans-serif;
+      }
+      .reset-btn {
+        padding: 0 $small-spacer;
+        margin-right: (-$small-spacer);
+        min-width: auto;
       }
     }
     .subheading-block {
@@ -41,11 +53,7 @@
       }
     }
   }
-  .reset-btn {
-    padding: 0 $small-spacer;
-    margin-right: (-$small-spacer);
-    min-width: auto;
-  }
+
   .back-btn {
     position: absolute;
     top: $small-spacer;
@@ -53,12 +61,36 @@
     color: $gray;
     background: $white;
   }
+
+  .action-btn {
+    background-color: $primary;
+    width: $large-spacer;
+    height: $large-spacer;
+    line-height: $large-spacer;
+    margin: $small-spacer*0.5;
+    &[disabled] {
+      background-color: $disabled;
+    }
+    .mat-icon {
+      width: $large-spacer;
+      height: auto;
+      line-height: $large-spacer - 1px;
+      color: $light-primary-text;
+      font-size: $regular-spacer;
+    }
+  }
+
+  .item-count {
+    margin: 0 $regular-spacer;
+  }
+
   .card-header {
     padding: $small-spacer;
     display: flex;
     text-align: center;
     justify-content: center;
   }
+
   .add-to-cart-btn {
     width: 100%;
     padding: 0 $small-spacer;
@@ -78,6 +110,7 @@
   .price-tag {
     color: $gray;
   }
+
   .input-group {
     display: flex;
     flex-direction: column;
@@ -99,6 +132,5 @@
         flex-grow: 2;
       }
     }
-
   }
 }

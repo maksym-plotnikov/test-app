@@ -5,11 +5,7 @@ export interface ProductExtrasItem {
     price: number;
 }
 
-export interface ExtendedProductExtrasItem {
-    id: number;
-    name: string;
-    extra_id: number;
-    price: number;
+export interface ExtendedProductExtrasItem  extends ProductExtrasItem{
     parentId: number;
 }
 

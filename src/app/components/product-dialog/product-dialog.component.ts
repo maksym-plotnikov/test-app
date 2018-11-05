@@ -28,10 +28,6 @@ export class ProductDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     }
 
-    needsValidation(index) {
-        return this.product.extras[index].min > 0;
-    }
-
     decrement(): void {
         if (this.itemCount > 1) {
             --this.itemCount;
@@ -44,43 +40,43 @@ export class ProductDialogComponent implements OnInit {
         this.grandTotal = this.grandTotal + this.product.price;
     }
 
+    needsValidation(option) {
+        return option.min > 0;
+    }
+
     needsReset(option) {
         return option.min === 0 && option.max <= 1;
     }
 
-    needsMultipeOptions(index) {
-        return this.product.extras[index].max > 1;
+    needsMultipeOptions(option) {
+        return option.max > 1;
     }
 
     resetFieldGroup(parentId) {
-        this.onChange(parentId, {}, true);
+        this.onChange(parentId, {}, null, true);
+
     }
 
     onClose(data = null): void {
         this.dialogRef.close(data);
     }
 
-    onChange(parentId, option, reset = false, event = null): void {
-        if (reset) {
-            delete this.radioData[parentId];
-            return;
-        }
+    onChange(parentId, option, event = null, reset = false): void {
         this.hasErrors = false;
         let prevTotal = 0;
         let total = 0;
-        const extOption = {...{parentId}, ...option};
         this.selectedExtras.map(item => prevTotal += item.price);
-        console.log(event);
         const idx = !event
-            ? this.selectedExtras.findIndex(item => (item.name === option.name || item.parentId === parentId))
+            ? this.selectedExtras.findIndex(item => (item.parentId === parentId || item.name === option.name))
             : this.selectedExtras.findIndex(item => item.name === option.name);
         if (idx >= 0) {
-            console.log(idx);
             this.selectedExtras.splice(idx, 1);
+            if (reset) {
+                delete this.radioData[parentId];
+            }
         }
-        if (!event || event.checked) {
-
-            this.selectedExtras.push(extOption);
+        if (!reset || event != null || event && event.checked) {
+            this.selectedExtras.push({parentId, ...option} as ExtendedProductExtrasItem);
             this.radioData[parentId] = option;
         }
         this.selectedExtras.map(item => total += item.price);
@@ -88,7 +84,7 @@ export class ProductDialogComponent implements OnInit {
     }
 
     onSubmit() {
-        const required = this.product.extras.filter((option, parentId) => this.needsValidation(parentId) && option);
+        const required = this.product.extras.filter((option) => this.needsValidation(option));
         const [errors] = required.map(item => this.selectedExtras.filter(i => i.parentId === item.id).length > 0);
         this.hasErrors = (this.selectedExtras.length === 0 || !errors);
         if (!this.hasErrors) {
