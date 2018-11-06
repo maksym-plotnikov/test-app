@@ -1,5 +1,4 @@
-import {ProductExtras} from './ProductExtras.model';
-
+import {ProductExtras, ExtendedProductExtrasItem} from './ProductExtras.model';
 
 interface ProductImages {
     full_size: string;
@@ -22,6 +21,13 @@ export interface Product {
     category: ProductCategory;
     images: ProductImages;
     extras: ProductExtras[];
-    tags: [];
+    tags: string[];
     availability: string;
+}
+
+export interface SelectedProduct {
+    grandTotal: number;
+    productItems: number;
+    product: Product;
+    extras: ExtendedProductExtrasItem[];
 }

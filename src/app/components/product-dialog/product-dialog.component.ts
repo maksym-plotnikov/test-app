@@ -1,31 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {Router} from '@angular/router';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Product} from '../../models/Product.model';
+import {Product, SelectedProduct} from '../../models/Product.model';
 import {ExtendedProductExtrasItem} from '../../models/ProductExtras.model';
-import {ProductsService} from '../../services/productsService';
-import {MenuProductItem} from '../../models/MenuProductItem.model';
-
-export interface DialogData {
-    product: MenuProductItem;
-}
 
 @Component({
-    selector: 'app-product-dialog',
+    selector: 'app-product-dialog-component',
     templateUrl: './product-dialog.component.html'
 })
 
-export class ProductDialogComponent implements OnInit {
+export class ProductDialogComponent {
     hasErrors = false;
-    public product: Product;
     public itemCount = 1;
     public grandTotal = 0;
     public selectedExtras: ExtendedProductExtrasItem[] = [];
     public radioData = {};
 
     constructor(
-        private productsService: ProductsService,
+        public router: Router,
         public dialogRef: MatDialogRef<ProductDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        @Inject(MAT_DIALOG_DATA) public product: Product) {
+        this.grandTotal = this.product.price;
     }
 
     decrement(): void {
@@ -75,9 +70,11 @@ export class ProductDialogComponent implements OnInit {
                 delete this.radioData[parentId];
             }
         }
-        if (!reset || event != null || event && event.checked) {
-            this.selectedExtras.push({parentId, ...option} as ExtendedProductExtrasItem);
-            this.radioData[parentId] = option;
+        if (!reset) {
+            if (event == null || event.checked) {
+                this.selectedExtras.push({parentId, ...option} as ExtendedProductExtrasItem);
+                this.radioData[parentId] = option;
+            }
         }
         this.selectedExtras.map(item => total += item.price);
         this.grandTotal = (this.grandTotal + total) - prevTotal;
@@ -90,15 +87,5 @@ export class ProductDialogComponent implements OnInit {
         if (!this.hasErrors) {
             this.onClose({grandTotal: this.grandTotal, product: this.product, productItems: this.itemCount, extras: this.selectedExtras});
         }
-    }
-
-    ngOnInit() {
-        this.productsService.getProductsData()
-            .then(result => {
-                const {product: {id}} = this.data;
-                this.product = result.find(item => item.id === id);
-                this.grandTotal = this.product.price;
-            })
-            .catch(error => console.log('Error Getting Data: ', error));
     }
 }

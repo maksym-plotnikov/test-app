@@ -5,7 +5,7 @@ export interface ProductExtrasItem {
     price: number;
 }
 
-export interface ExtendedProductExtrasItem  extends ProductExtrasItem{
+export interface ExtendedProductExtrasItem extends ProductExtrasItem {
     parentId: number;
 }
 

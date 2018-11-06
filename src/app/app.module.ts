@@ -8,6 +8,7 @@ import {AppRoutingModule} from './app-routing.module';
 // Components
 import {AppComponent} from './app.component';
 import {ProductListComponent} from './components/product-list/product-list.component';
+import {ProductItemComponent} from './components/product-item/product-item.component';
 import {ProductDialogComponent} from './components/product-dialog/product-dialog.component';
 // Services
 import {ProductsService} from './services/productsService';
@@ -26,9 +27,10 @@ import {ProductsService} from './services/productsService';
     declarations: [
         AppComponent,
         ProductListComponent,
+        ProductItemComponent,
         ProductDialogComponent,
     ],
-    entryComponents: [AppComponent, ProductListComponent, ProductDialogComponent],
+    entryComponents: [ProductDialogComponent],
     providers: [
         ProductsService
     ],

@@ -3,7 +3,7 @@
         <h2>Products</h2>
     </mat-list-item>
     <div class="list-item" *ngFor="let product of menuData.products">
-        <mat-list-item (click)="gotoProductDetails(product)">
+        <mat-list-item (click)="gotoProductDetails(product)" *ngIf="product">
             <h2 matLine>{{product.name}}</h2>
             <p matLine>
                 <span>{{product.description}}</span>
@@ -13,6 +13,7 @@
         <mat-divider></mat-divider>
     </div>
 </mat-list>
+
 <div class="content-column mat-list-item" *ngIf="selectedProduct">
     <h2 class="mat-h2">You choosed:</h2>
     <h3 class="mat-h3">{{selectedProduct.product.name}}</h3>
@@ -26,3 +27,4 @@
     </div>
     <h3 class="mat-h3">TOTAL: ${{selectedProduct.grandTotal}}</h3>
 </div>
+<router-outlet></router-outlet>

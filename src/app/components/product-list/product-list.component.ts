@@ -1,56 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
-import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
 import {MenuProductItem} from '../../models/MenuProductItem.model';
 import {ProductsMenu} from '../../models/Menu.model';
+import {SelectedProduct} from '../../models/Product.model';
 import {ProductsService} from '../../services/productsService';
 import {BASE_ROUTE} from '../../constants/urls';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
 })
 
-export class ProductListComponent implements OnInit {
-    private routeId: number;
-    public selectedProduct: any;
+export class ProductListComponent implements OnInit, OnDestroy {
+    @Input() menuData: ProductsMenu;
     public name: string;
-    public menuData: ProductsMenu;
+    public selectedProduct: {} | SelectedProduct;
     objectValues = Object.values;
+    subscription: Subscription;
 
     constructor(
-        private _route: ActivatedRoute,
-        private productsService: ProductsService,
         public router: Router,
-        public dialog: MatDialog) {
-        this._route.params.subscribe(params => {
-            this.routeId = params.id;
-        });
-    }
-
-    public openDialog(product: object): void {
-        const dialogRef = this.dialog.open(ProductDialogComponent, {
-            id: 'product-dialog',
-            data: {product}
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            this.selectedProduct = result;
-            this.router.navigateByUrl(BASE_ROUTE);
-        });
+        private productsService: ProductsService,
+    ) {
+        this.subscription = productsService.productSelected$.subscribe(product => this.selectedProduct = product);
     }
 
     public gotoProductDetails(product: MenuProductItem) {
-        const productUrl = `${BASE_ROUTE}/${product.id}`;
-        this.router.navigateByUrl(productUrl).then(() => this.openDialog(product));
+        this.router.navigateByUrl(`${BASE_ROUTE}/${product.id}`);
     }
 
     ngOnInit() {
-        this.router.navigateByUrl(BASE_ROUTE);
         this.productsService.getMenuData()
             .then(result => this.menuData = result)
             .catch(error => console.log('Error Getting Data: ', error));
+    }
 
-
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
